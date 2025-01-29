@@ -1,0 +1,64 @@
+import random
+import webbrowser
+
+
+class ChatBot:
+
+  def __init__(self):
+    self.responses = {
+        "hi": "Hello!",
+        "how are you": "I'm good, thank you! How are you?",
+        "bye": "Goodbye!",
+        "what's your name": "My name is Chatterbot.",
+        "what are your hobbies": "Solving your problems.",
+        'tell me a joke': "100% placement granted in your university",
+        'haha': "haha",
+        "i'm also good": "Nice to hear that. How can I help you?",
+        "open youtube": "Opening YouTube...",
+        "open google": "Opening Google...",
+        "open instagram": "Opening Instagram...",
+        "tell me about python": "Python OP...",
+        "open iilm": "ok ;)"
+    }
+
+  def get_response(self, message):
+    return self.responses.get(message.lower(),
+                              "I'm not sure how to respond to that.")
+
+  def open_url(self, url):
+    webbrowser.open(url)
+
+
+if __name__ == "__main__":
+  chatbot = ChatBot()
+
+  print("Welcome! I'm Chatterbot. Ask me anything or say 'bye' to exit.")
+
+  while True:
+    user_message = input("You: ")
+
+    if user_message.lower() == 'bye':
+      print("Chatbot: Goodbye!")
+      break
+
+    elif user_message.lower() in [
+        "open youtube", "open google", "open instagram", "open iilm"
+    ]:
+      chatbot.open_url(
+          "https://www.youtube.com/" if "youtube" in user_message.lower(
+          ) else "https://www.google.com/" if "google" in user_message.lower(
+          ) else "https://www.instagram.com/" if "google" in user_message.
+          lower() else "https://iilm.my.site.com/placements/s/login/")
+
+      response = "Opening {}...".format(
+          user_message.split(" ")[1].capitalize())
+
+    elif user_message.lower() == "tell me about python":
+      chatbot.open_url(
+          "https://en.wikipedia.org/wiki/Python_(programming_language)")
+      response = "Opening Wikipedia page for Python..."
+
+    else:
+      response = chatbot.get_response(user_message)
+
+    print("Chatbot:", response)
