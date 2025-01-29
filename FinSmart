@@ -1,0 +1,174 @@
+from gtts import gTTS
+import os
+import pyshorteners
+import time
+
+# Function to shorten URLs with retries
+def shorten_url(url):
+    shortener = pyshorteners.Shortener(timeout=10)  # Increased timeout to 10s
+    for _ in range(3):  # Retry up to 3 times
+        try:
+            return shortener.tinyurl.short(url)
+        except Exception as e:
+            print(f"Error shortening URL: {e}. Retrying...")
+            time.sleep(2)
+    return "URL shortening failed"
+
+# URLs
+url = "https://www.moneycontrol.com/stocks/marketstats/index.php"
+url1 = "https://www.homebazaar.com/?trk=article-ssr-frontend-pulse_little-text-block"
+url2 = "https://groww.in/fixed-deposit"
+
+# Shortened URLs
+shortened_url = shorten_url(url)
+shortened_url1 = shorten_url(url1)
+shortened_url2 = shorten_url(url2)
+
+# Function to play audio
+def play_audio(text):
+    language = 'en'
+    tts = gTTS(text=text, lang=language, slow=False)
+    tts.save("output.mp3")
+
+    # Play audio based on OS
+    if os.name == "nt":  # Windows
+        os.system("start output.mp3")
+    elif os.name == "posix":  # Linux/macOS
+        os.system("xdg-open output.mp3")  # Linux
+        # Uncomment for macOS: subprocess.run(["afplay", "output.mp3"])
+
+# Functions for different financial situations
+def suggest_investment(saved_money):
+    text = f"Your saved money is {saved_money}, which is great. Consider investing in stocks, real estate, or FDs."
+    play_audio(text)
+
+def suggest_savings(total_expense):
+    text = f"Your expenditure is {total_expense}, which is on its borderline. Try these methods: use public transport, follow the 50-30-20 rule, and set a new spending limit."
+    play_audio(text)
+
+def suggest_control(total_expense):
+    text = f"Your expenditure is {total_expense}, exceeding your limit. Reduce costs by using public transport and following the 50-30-20 rule."
+    play_audio(text)
+
+# User Inputs
+print("\t\t\t\t\t ＦｉｎＳｍａｒｔ")
+limit = int(input("Limit: "))
+food_expense = int(input("Enter food expenses: "))
+travel_expense = int(input("Enter travel expenses: "))
+misc_expense = int(input("Enter miscellaneous expenses: "))
+
+# Total expenses
+total_expense = food_expense + travel_expense + misc_expense
+print("Your total expense =", total_expense)
+
+# Decision Making
+if total_expense < limit:
+    saved_money = limit - total_expense
+    print(f"After expenditure, your saved money is {saved_money}.")
+    print("You should consider investing. Here are some options:")
+    print(f"1) Invest in stocks -> {shortened_url}")
+    print(f"2) Invest in real estate -> {shortened_url1}")
+    print(f"3) Go for FDs -> {shortened_url2}")
+    suggest_investment(saved_money)
+
+elif total_expense == limit:
+    print(f"Your expenditure is {total_expense}, which is at its borderline.")
+    print("Try these saving methods:")
+    print("1) Use public transport")
+    print("2) Follow the 50-30-20 rule")
+    print("3) Set a new achievable limit")
+    suggest_savings(total_expense)
+
+else:
+    print(f"Your expenditure is {total_expense}. You need to control it.")
+    print("Try these methods:")
+    print("1) Use public transport")
+    print("2) Follow the 50-30-20 rule")
+    suggest_control(total_expense)
+from gtts import gTTS
+import os
+import pyshorteners
+import time
+
+# Function to shorten URLs with retries
+def shorten_url(url):
+    shortener = pyshorteners.Shortener(timeout=10)  # Increased timeout to 10s
+    for _ in range(3):  # Retry up to 3 times
+        try:
+            return shortener.tinyurl.short(url)
+        except Exception as e:
+            print(f"Error shortening URL: {e}. Retrying...")
+            time.sleep(2)
+    return "URL shortening failed"
+
+# URLs
+url = "https://www.moneycontrol.com/stocks/marketstats/index.php"
+url1 = "https://www.homebazaar.com/?trk=article-ssr-frontend-pulse_little-text-block"
+url2 = "https://groww.in/fixed-deposit"
+
+# Shortened URLs
+shortened_url = shorten_url(url)
+shortened_url1 = shorten_url(url1)
+shortened_url2 = shorten_url(url2)
+
+# Function to play audio
+def play_audio(text):
+    language = 'en'
+    tts = gTTS(text=text, lang=language, slow=False)
+    tts.save("output.mp3")
+
+    # Play audio based on OS
+    if os.name == "nt":  # Windows
+        os.system("start output.mp3")
+    elif os.name == "posix":  # Linux/macOS
+        os.system("xdg-open output.mp3")  # Linux
+        # Uncomment for macOS: subprocess.run(["afplay", "output.mp3"])
+
+# Functions for different financial situations
+def suggest_investment(saved_money):
+    text = f"Your saved money is {saved_money}, which is great. Consider investing in stocks, real estate, or FDs."
+    play_audio(text)
+
+def suggest_savings(total_expense):
+    text = f"Your expenditure is {total_expense}, which is on its borderline. Try these methods: use public transport, follow the 50-30-20 rule, and set a new spending limit."
+    play_audio(text)
+
+def suggest_control(total_expense):
+    text = f"Your expenditure is {total_expense}, exceeding your limit. Reduce costs by using public transport and following the 50-30-20 rule."
+    play_audio(text)
+
+# User Inputs
+print("\t\t\t\t\t ＦｉｎＳｍａｒｔ")
+limit = int(input("Limit: "))
+food_expense = int(input("Enter food expenses: "))
+travel_expense = int(input("Enter travel expenses: "))
+misc_expense = int(input("Enter miscellaneous expenses: "))
+
+# Total expenses
+total_expense = food_expense + travel_expense + misc_expense
+print("Your total expense =", total_expense)
+
+# Decision Making
+if total_expense < limit:
+    saved_money = limit - total_expense
+    print(f"After expenditure, your saved money is {saved_money}.")
+    print("You should consider investing. Here are some options:")
+    print(f"1) Invest in stocks -> {shortened_url}")
+    print(f"2) Invest in real estate -> {shortened_url1}")
+    print(f"3) Go for FDs -> {shortened_url2}")
+    suggest_investment(saved_money)
+
+elif total_expense == limit:
+    print(f"Your expenditure is {total_expense}, which is at its borderline.")
+    print("Try these saving methods:")
+    print("1) Use public transport")
+    print("2) Follow the 50-30-20 rule")
+    print("3) Set a new achievable limit")
+    suggest_savings(total_expense)
+
+else:
+    print(f"Your expenditure is {total_expense}. You need to control it.")
+    print("Try these methods:")
+    print("1) Use public transport")
+    print("2) Follow the 50-30-20 rule")
+    suggest_control(total_expense)
