@@ -1,0 +1,227 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Function prototypes
+void insert(int, int, int);
+int update(int);
+int search(int);
+int search1(int);
+void depositMoney(int, int);
+void withdrawMoney(int, int);
+void saveAccountsToFile();
+void loadAccountsFromFile();
+
+// Structure to represent a bank account
+struct node {
+    int account_number;
+    int password;
+    int balance;
+    struct node *link;
+};
+
+// Global variable to store the head of the linked list
+struct node *head = NULL;
+
+int main() {
+    // Load accounts from file when the program starts
+    loadAccountsFromFile();
+
+    int account_num, password, option, existing_accounts;
+    char create_account_choice;
+
+    // Predefined accounts for demonstration purposes
+    insert(1, 1234, 1000);
+    insert(2, 5678, 2000);
+    insert(3, 9012, 3000);
+    insert(4, 3456, 4000);
+    insert(5, 7890, 5000);
+
+    printf("_____________________________________________________________________\n");
+    printf("\t\t\t\t\t\t\t   SIGMA BANK\n");
+    printf("\t\t\t\t\t\t  [Knowledge Park-3]\n");
+    printf("_____________________________________________________________________\n\n");
+
+    printf("Enter your account number: ");
+    scanf("%d", &account_num);
+
+    // Check if the account exists
+    existing_accounts = update(account_num);
+
+    if (existing_accounts == 1) {
+        printf("Account available!\n");
+        printf("Enter your password: ");
+        scanf("%d", &password);
+
+        // Validate the password
+        int stored_password = search(account_num);
+        if (password == stored_password) {
+            printf("Welcome!\n");
+
+            // Display account balance and options
+            printf("\nYour current balance: %d\n", search1(account_num));
+            printf("\nOptions:\n1. Deposit Money\n2. Withdraw Money\n3. Exit\n");
+            printf("Your selected option: ");
+            scanf("%d", &option);
+
+            switch (option) {
+                case 1:
+                    printf("Enter the amount to deposit: ");
+                    int deposit_amount;
+                    scanf("%d", &deposit_amount);
+                    depositMoney(account_num, deposit_amount);
+                    break;
+                case 2:
+                    printf("Enter the amount to withdraw: ");
+                    int withdraw_amount;
+                    scanf("%d", &withdraw_amount);
+                    withdrawMoney(account_num, withdraw_amount);
+                    break;
+                case 3:
+                    printf("\nThank you for using SIGMA BANK.\n");
+                    saveAccountsToFile(); // Save accounts to file before exiting
+                    exit(0);
+                default:
+                    printf("Invalid option.\n");
+            }
+        } else {
+            printf("Invalid password.\n");
+        }
+    } else {
+        printf("Account not available.\n");
+        printf("Would you like to create one with us? (Y/N): ");
+        scanf(" %c", &create_account_choice);
+
+        if (create_account_choice == 'Y' || create_account_choice == 'y') {
+            printf("Enter a new password: ");
+            scanf("%d", &password);
+            printf("Enter initial deposit amount: ");
+            int initial_deposit;
+            scanf("%d", &initial_deposit);
+            insert(account_num, password, initial_deposit);
+            printf("Account created successfully.\n");
+        }
+    }
+
+    // Save accounts to file before exiting
+    saveAccountsToFile();
+    return 0;
+}
+
+// Function to check if an account exists
+int update(int account_num) {
+    int count = 0;
+    struct node *ptr = head;
+  while (ptr != NULL) {
+          if (ptr->account_number == account_num) {
+              count++;
+          }
+          ptr = ptr->link;
+      }
+      return count;
+  }
+  // Function to insert a new account into the linked list
+  void insert(int account_number, int password, int balance) {
+      struct node *new_node = (struct node *)malloc(sizeof(struct node));
+      new_node->account_number = account_number;
+      new_node->password = password;
+      new_node->balance = balance;
+      new_node->link = NULL;
+
+      if (head == NULL) {
+          head = new_node;
+      } else {
+          struct node *temp = head;
+          while (temp->link != NULL) {
+              temp = temp->link;
+          }
+          temp->link = new_node;
+      }
+  }
+
+  // Function to search for an account's password
+  int search(int account_num) {
+      struct node *ptr = head;
+      while (ptr != NULL) {
+          if (ptr->account_number == account_num) {
+              return ptr->password;
+          }
+          ptr = ptr->link;
+      }
+      return -1; // Account not found
+  }
+
+  // Function to search for an account's balance
+  int search1(int account_num) {
+      struct node *ptr = head;
+      while (ptr != NULL) {
+          if (ptr->account_number == account_num) {
+              return ptr->balance;
+          }
+          ptr = ptr->link;
+      }
+      return -1; // Account not found
+  }
+
+  // Function to deposit money into an account
+  void depositMoney(int account_num, int amount) {
+      struct node *ptr = head;
+      while (ptr != NULL) {
+          if (ptr->account_number == account_num) {
+              ptr->balance += amount;
+              printf("Deposit of %d successfully made. Your updated balance is: %d\n", amount, ptr->balance);
+              return;
+          }
+          ptr = ptr->link;
+      }
+  }
+
+  // Function to withdraw money from an account
+  void withdrawMoney(int account_num, int amount) {
+      struct node *ptr = head;
+      while (ptr != NULL) {
+          if (ptr->account_number == account_num) {
+              if (ptr->balance >= amount) {
+                  ptr->balance -= amount;
+                  printf("Withdrawal of %d successfully made. Your updated balance is: %d\n", amount, ptr->balance);
+              } else {
+                  printf("Insufficient funds.\n");
+              }
+              return;
+          }
+          ptr = ptr->link;
+      }
+  }
+
+  // Function to save accounts to a file
+  void saveAccountsToFile() {
+      FILE *file = fopen("accounts.txt", "w");
+      if (file == NULL) {
+          printf("Error opening file for writing.\n");
+          return;
+      }
+
+      struct node *ptr = head;
+      while (ptr != NULL) {
+          fprintf(file, "%d %d %d\n", ptr->account_number, ptr->password, ptr->balance);
+          ptr = ptr->link;
+      }
+
+      fclose(file);
+  }
+
+// Function to load accounts from a file
+void loadAccountsFromFile() {
+    FILE *file = fopen("accounts.txt", "r");
+    if (file == NULL) {
+        printf("Error opening file for reading or file does not exist.\n"); // Missing semicolon added here
+        return;
+    }
+
+    int account_number, password, balance;
+    while (fscanf(file, "%d %d %d", &account_number, &password, &balance) == 3) {
+        insert(account_number, password, balance);
+    }
+
+    fclose(file);
+}
+
