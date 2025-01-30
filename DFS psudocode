@@ -1,0 +1,15 @@
+DFS(graph, start_node):
+    Create an empty stack S
+    Create a set visited to keep track of visited nodes
+    Push start_node onto S
+    Push()
+    mark_visited(start_node, visited)
+
+    while S is not empty:
+        node = Pop from S
+        process_node(node)
+
+        for each neighbor in reverse(graph[node]):  
+            if neighbor is not in visited:
+                Push neighbor onto S 
+                mark_visited(neighbor, visited)
