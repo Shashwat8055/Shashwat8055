@@ -31,13 +31,14 @@ Computer Science Student | Backend & Problem Solving
 ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github)
 
 
-## 📊 GitHub Stats:
-
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=YOUR_USERNAME&show_icons=true&theme=dark)
+##📊 GitHub Stats:
+![](https://github-readme-stats.vercel.app/api?username=Shashwat8055&theme=dark&hide_border=false&include_all_commits=true&count_private=false)<br/>
+![](https://nirzak-streak-stats.vercel.app/?user=Shashwat8055&theme=dark&hide_border=false)<br/>
+![](https://github-readme-stats.vercel.app/api/top-langs/?username=Shashwat8055&theme=dark&hide_border=false&include_all_commits=true&count_private=false&layout=compact)
 
 
 ## 🏆 GitHub Trophies
-![](https://github-profile-trophy.vercel.app/?username=Sanjeevp-07&theme=radical&no-frame=false&no-bg=true&margin-w=4)
+![](https://github-profile-trophy.vercel.app/?username=Shashwat8055&theme=radical&no-frame=false&no-bg=true&margin-w=4)
 
 ### ✍️ Random Dev Quote
 ![](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical)
@@ -46,7 +47,7 @@ Computer Science Student | Backend & Problem Solving
 ![](https://github-contributor-stats.vercel.app/api?username=Shashwat8055&limit=5&theme=dark&combine_all_yearly_contributions=true)
 
 ---
-[![](https://visitcount.itsvg.in/api?id=Sanjeevp-07&icon=0&color=0)](https://visitcount.itsvg.in)
+[![](https://visitcount.itsvg.in/api?id=Shashwat8055&icon=0&color=0)](https://visitcount.itsvg.in)
 
 
 
