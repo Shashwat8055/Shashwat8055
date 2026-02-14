@@ -1,8 +1,6 @@
 - # Shashwat Mittal
 Computer Science Student | Backend & Problem Solving
 
-## 🌐 Socials:
-(Pehle socials wala code paste)
 
 ## 💻 Tech Stack:
 ![C](https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white)
@@ -34,7 +32,9 @@ Computer Science Student | Backend & Problem Solving
 
 
 ## 📊 GitHub Stats:
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=yourusername&show_icons=true&theme=dark)
+
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=YOUR_USERNAME&show_icons=true&theme=dark)
+
 
 
 
